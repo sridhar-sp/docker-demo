@@ -208,4 +208,32 @@ ENTRYPOINT command param1 param2
 
 ### Docker compose
 
+Example compose. app is dependent on redis
+
+```
+version: "3"
+services:
+  redis:
+    image: "redis"
+    ports:
+      - 6379:6379
+
+  app:
+    build: .
+    ports:
+      - 3000:8080
+    links:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis
+    depends_on:
+      - redis
+```
+
 ### Links
+
+Example to link Redis to application
+
+```
+docker run --name 'app_name' --link redis:redis -p 3000:8080 --env=REDIS_URL=redis://redis "app_image_name"
+```
