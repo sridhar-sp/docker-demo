@@ -237,3 +237,28 @@ Example to link Redis to application
 ```
 docker run --name 'app_name' --link redis:redis -p 3000:8080 --env=REDIS_URL=redis://redis "app_image_name"
 ```
+
+### Storage
+
+#### Volume mapping
+```
+docker run -v 'host dir abs path':'dir used by the image'  'image name'
+```
+
+
+### Networking
+
+#### Default network
+
+
+| Network | Description |
+| ------ | ------ |
+| Bridge | Default private network all containers are attached to when no network is specified|
+| Host | Use host network directly, no isolation between container and docker host |
+| None | Disable all networking |
+
+#### User defined network
+```
+docker network create --driver 'network type' --subnet 'subnet_value' --gateway 'gateway_ip' 'user defined network name'
+docker network create --driver bridge --subnet 182.18.0.1/24 --gateway 182.18.0.1 wp-mysql-network
+```
